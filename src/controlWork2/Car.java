@@ -1,57 +1,51 @@
 package controlWork2;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-public class Car /*implements Comparable<Car>*/ {
-    protected String brand = ""; //Модель авто
-
-
-
-    protected String driver = ""; //водитель
-    private final Date dateTime; // Дата и время простоя
-    protected String sDateTime;
+public class Car {
+    protected String brand = "Track";
+    protected String driver; //водитель
+    protected int startHour; // Время начала рейса
+    protected int endHour; // Время окончания рейса
     protected double averageLoadCapacity; // Средняя грузоподъемность
+    protected String routeInfo; //инфо о маршруте
+    protected String kindCargo; //Вид груза
 
+    public Car(String driver, int startHour, int endHour, double averageLoadCapacity, String routeInfo, String kindCargo) {
 
-    Car(String sDateTime, double averageLoadCapacity, String driver) throws ParseException {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy-hh:mm");
-        this.dateTime = dateFormat.parse(sDateTime);
-        this.sDateTime = sDateTime;
+        this.driver = driver;
+        this.startHour = startHour;
+        this.endHour = endHour;
         this.averageLoadCapacity = averageLoadCapacity;
-        this.driver=driver;
+        this.routeInfo = routeInfo;
+        this.kindCargo = kindCargo;
     }
-    public String getBrand() {
-        return brand;
+
+    public Car(String driver, double averageLoadCapacity) {
+        this.driver = driver;
+        this.averageLoadCapacity = averageLoadCapacity;
     }
 
     public String getDriver() {
         return driver;
     }
 
-    public Date getDateTime() {
-        return dateTime;
+    public int getStartHour() {
+        return startHour;
     }
 
-    public String getsDateTime() {
-        return sDateTime;
+    public int getEndHour() {
+        return endHour;
     }
 
     public double getAverageLoadCapacity() {
         return averageLoadCapacity;
     }
 
+    public String getRouteInfo() {
+        return routeInfo;
+    }
 
-  /*  @Override
-    public int compareTo(Car car) {
-
-        double afc1 = getAverageFuelConsumption();
-        double afc2 = car.getAverageFuelConsumption();
-        String sAfc1 = String.valueOf(afc1);
-        String sAfc2 = String.valueOf(afc2);
-        return sAfc1.compareTo(sAfc2);
-    }*/
-
+    public String getKindCargo() {
+        return kindCargo;
+    }
 
 }

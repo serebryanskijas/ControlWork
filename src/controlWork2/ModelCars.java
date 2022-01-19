@@ -3,23 +3,29 @@ package controlWork2;
 import java.text.ParseException;
 
 enum Status {
-    FREE, ACTIVE
+    FREE, BUSY
 }
 
 enum ModelCars {
-    N1, N2, N3, A1, A2, A3
+    N3_5, N6_9, N9_12
 }
 
 class Model extends Car {
     private ModelCars model;
     private Status status;
 
-    public Model(String sDateTimeNotActive, double averageLoadCapacity, String driver, ModelCars model, Status status) throws ParseException {
-        super(sDateTimeNotActive, averageLoadCapacity, driver);
-        this.brand = "Track";
+    public Model(String driver, int startHour, int endHour, double averageLoadCapacity, String routeInfo, String kindCargo, ModelCars model, Status status) {
+        super(driver, startHour, endHour, averageLoadCapacity, routeInfo, kindCargo);
         this.model = model;
         this.status = status;
     }
+
+    public Model(String driver, double averageLoadCapacity, ModelCars model, Status status) {
+        super(driver, averageLoadCapacity);
+        this.model = model;
+        this.status = status;
+    }
+
 
     public ModelCars getModel() {
         return model;
@@ -30,13 +36,18 @@ class Model extends Car {
     }
 
     public String toString() {
-        String result;
-        //if (sDateTimeActive.isEmpty())
-            result = String.format("[%s - %s, Driver mr. %s" + "\nOn the date: %s have a status: $s average load capacity: %f tons]%n",
-                    getBrand(), getModel().toString(), getDriver(), getsDateTime, getStatus().toString(), getAverageLoadCapacity());
-      /*  else
-            result = String.format("[%s - %s, Car is busy: %s, average load capacity: %f tons]%n",
-                    getBrand(), getModel().toString(), getsDateTimeActive(), getAverageLoadCapacity());*/
+        String result = "";
+        if (getStatus().equals(Status.BUSY))
+            result = String.format("""
+                            [%s - %s, Driver mr. %s
+                            Track is busy with %d:00 from %d:00
+                            Average load capacity: %.1f tons, route is %s, kind cargo is %s]%n""",
+                    brand, getModel().toString(), getDriver(), getStartHour(), getEndHour(), getAverageLoadCapacity(),
+                    getRouteInfo(), getKindCargo());
+        else
+            result = String.format("[%s - %s, Driver mr. %s, Track is %s, average load capacity: %.2f tons]%n",
+                    brand, getModel().toString(), getDriver(), getStatus().toString(), getAverageLoadCapacity());
+
         return result;
     }
 }
